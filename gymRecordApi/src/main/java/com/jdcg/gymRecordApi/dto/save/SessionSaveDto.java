@@ -2,12 +2,11 @@ package com.jdcg.gymRecordApi.dto.save;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record RoutineSaveDto(
+public record SessionSaveDto(
 
         @NotEmpty(message = "Name can´t be empty ")
-        String routineName,
-
-        String routineDescription
+        String sessionName,
+        String sessionNotes
 
 ) {
 }

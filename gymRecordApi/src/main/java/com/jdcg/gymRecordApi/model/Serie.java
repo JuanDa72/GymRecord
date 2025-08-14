@@ -22,7 +22,7 @@ public class Serie {
     @Column(name = "SerieOrden", nullable = false)
     private Integer serieOrden;
 
-    @Column(name = "SerieWeight", precision = 5, scale = 2)
+    @Column(name = "SerieWeight", precision = 5, scale = 2, nullable = false)
     private BigDecimal serieWeight;
 
     @Column(name = "SerieRepetitions", nullable = false)
