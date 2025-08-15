@@ -89,7 +89,7 @@ public class UserMapper {
         if (userUpdateDto.userWeight() != null) {
             user.setUserWeight(userUpdateDto.userWeight());
         }
-        
+
         return user;
     }
 

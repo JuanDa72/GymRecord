@@ -15,7 +15,10 @@ public record SerieSaveDto(
         BigDecimal serieWeight,
         @Min(value = 1, message = "The number of series must be greater than 0")
         Integer serieRepetitions,
-        String serieNotes
+        String serieNotes,
+        @NotNull(message = "Exercise id can´t be null")
+        @Min(value = 1,message = "Exercise id must be greater than 0")
+        Integer exerciseId
 
 ) {
 }

@@ -1,11 +1,21 @@
 package com.jdcg.gymRecordApi.mapper;
 
 import com.jdcg.gymRecordApi.dto.get.ExerciseGetDto;
+import com.jdcg.gymRecordApi.dto.get.ExerciseGetDtoC;
 import com.jdcg.gymRecordApi.dto.save.ExerciseSaveDto;
 import com.jdcg.gymRecordApi.dto.update.ExerciseUpdateDto;
 import com.jdcg.gymRecordApi.model.Exercise;
 
+import java.util.stream.Collectors;
+
 public class ExerciseMapper {
+
+    public SerieMapper serieMapper;
+
+    public ExerciseMapper(SerieMapper serieMapper){
+        this.serieMapper=serieMapper;
+    }
+
 
     public ExerciseGetDto toExerciseGetDto(Exercise exercise){
 
@@ -19,6 +29,22 @@ public class ExerciseMapper {
         );
 
     }
+
+
+    public ExerciseGetDtoC toExerciseGetDtoC(Exercise exercise){
+
+        return new ExerciseGetDtoC(
+                exercise.getExerciseId(),
+                exercise.getExerciseName(),
+                exercise.getExercisesNumberSeries(),
+                exercise.getExerciseOrden(),
+                exercise.getExerciseMachine(),
+                exercise.getExerciseNotes(),
+                exercise.getSeries().stream().map(serieMapper::toSerieGetDto).collect(Collectors.toList())
+        );
+
+    }
+
 
     public Exercise toExercise(ExerciseSaveDto exerciseSaveDto){
         Exercise exercise=new Exercise();
