@@ -4,7 +4,10 @@ import com.jdcg.gymRecordApi.dto.get.SessionGetDto;
 import com.jdcg.gymRecordApi.dto.get.SessionGetDtoC;
 import com.jdcg.gymRecordApi.dto.save.SessionSaveDto;
 import com.jdcg.gymRecordApi.dto.update.SessionUpdateDto;
+import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.model.Session;
+import com.jdcg.gymRecordApi.repository.RoutineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.stream.Collectors;
 
@@ -12,8 +15,12 @@ public class SessionMapper {
 
     public ExerciseMapper exerciseMapper;
 
-    public SessionMapper(ExerciseMapper exerciseMapper){
+    public RoutineRepository routineRepository;
+
+    @Autowired
+    public SessionMapper(ExerciseMapper exerciseMapper, RoutineRepository routineRepository){
         this.exerciseMapper=exerciseMapper;
+        this.routineRepository=routineRepository;
     }
 
 
@@ -41,6 +48,12 @@ public class SessionMapper {
         Session session=new Session();
         session.setSessionName(sessionSaveDto.sessionName());
         session.setSessionNotes(sessionSaveDto.sessionNotes());
+
+        //Verificar que la rutina si exista
+        Routine routine=routineRepository.findById(sessionSaveDto.routineId()).orElseThrow(
+                ()->new RuntimeException("No routine was found with this ID")
+        );
+        session.setRoutine(routine);
         return session;
     }
 

@@ -3,9 +3,17 @@ package com.jdcg.gymRecordApi.mapper;
 import com.jdcg.gymRecordApi.dto.get.SerieGetDto;
 import com.jdcg.gymRecordApi.dto.save.SerieSaveDto;
 import com.jdcg.gymRecordApi.dto.update.SerieUpdateDto;
+import com.jdcg.gymRecordApi.model.Exercise;
 import com.jdcg.gymRecordApi.model.Serie;
+import com.jdcg.gymRecordApi.repository.ExerciseRepository;
 
 public class SerieMapper {
+
+    ExerciseRepository exerciseRepository;
+
+    public SerieMapper(ExerciseRepository exerciseRepository) {
+        this.exerciseRepository = exerciseRepository;
+    }
 
     public SerieGetDto toSerieGetDto(Serie serie){
         return new SerieGetDto(
@@ -24,6 +32,11 @@ public class SerieMapper {
         serie.setSerieWeight(serieSaveDto.serieWeight());
         serie.setSerieRepetitions(serieSaveDto.serieRepetitions());
         serie.setSerieNotes(serieSaveDto.serieNotes());
+
+        //Verificar que exista el ejercicio
+        Exercise exercise=exerciseRepository.findById(serieSaveDto.exerciseId()).
+                orElseThrow(()->new RuntimeException("No exercise was found with this id"));
+        serie.setExercise(exercise);
         return serie;
     }
 

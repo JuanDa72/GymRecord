@@ -5,15 +5,19 @@ import com.jdcg.gymRecordApi.dto.get.ExerciseGetDtoC;
 import com.jdcg.gymRecordApi.dto.save.ExerciseSaveDto;
 import com.jdcg.gymRecordApi.dto.update.ExerciseUpdateDto;
 import com.jdcg.gymRecordApi.model.Exercise;
+import com.jdcg.gymRecordApi.model.Session;
+import com.jdcg.gymRecordApi.repository.SessionRepository;
 
 import java.util.stream.Collectors;
 
 public class ExerciseMapper {
 
     public SerieMapper serieMapper;
+    public SessionRepository sessionRepository;
 
-    public ExerciseMapper(SerieMapper serieMapper){
+    public ExerciseMapper(SerieMapper serieMapper,SessionRepository sessionRepository){
         this.serieMapper=serieMapper;
+        this.sessionRepository=sessionRepository;
     }
 
 
@@ -53,6 +57,11 @@ public class ExerciseMapper {
         exercise.setExerciseOrden(exerciseSaveDto.exerciseOrden());
         exercise.setExerciseMachine(exerciseSaveDto.exerciseMachine());
         exercise.setExerciseNotes(exerciseSaveDto.exerciseNotes());
+
+        //Verificar que si exista la session
+        Session session=sessionRepository.findById(exerciseSaveDto.sessionId()).
+                orElseThrow(()->new RuntimeException("No session was found with this ID"));
+        exercise.setSession(session);
         return exercise;
     }
 

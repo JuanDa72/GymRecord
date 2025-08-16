@@ -1,9 +1,11 @@
 package com.jdcg.gymRecordApi.Service;
 
+import com.jdcg.gymRecordApi.dto.get.RoutineGetDto;
 import com.jdcg.gymRecordApi.dto.get.UserGetDto;
 import com.jdcg.gymRecordApi.dto.get.UserGetDtoC;
 import com.jdcg.gymRecordApi.dto.save.UserSaveDto;
 import com.jdcg.gymRecordApi.dto.update.UserUpdateDto;
+import com.jdcg.gymRecordApi.mapper.RoutineMapper;
 import com.jdcg.gymRecordApi.mapper.UserMapper;
 import com.jdcg.gymRecordApi.model.User;
 import com.jdcg.gymRecordApi.repository.UserRepository;
@@ -20,10 +22,13 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
+    private final RoutineMapper routineMapper;
+
     @Autowired
-    public UserService(UserMapper userMapper, UserRepository userRepository){
+    public UserService(UserMapper userMapper, UserRepository userRepository, RoutineMapper routineMapper){
         this.userMapper=userMapper;
         this.userRepository=userRepository;
+        this.routineMapper=routineMapper;
     }
 
     //Save
@@ -78,6 +83,15 @@ public class UserService {
             throw new RuntimeException("No user was found with this email");
         }
         return userMapper.toUserGetDtoC(user);
+    }
+
+
+    //Obtener todas las rutinas de un usuario en base a su id
+    public List<RoutineGetDto> getRoutinesByUserId(Integer id){
+        User user=userRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("No user was found with this ID")
+        );
+        return user.getRoutines().stream().map(routineMapper::toRoutineGetDto).collect(Collectors.toList());
     }
 
 

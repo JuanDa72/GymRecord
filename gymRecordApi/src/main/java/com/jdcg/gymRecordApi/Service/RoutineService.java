@@ -2,9 +2,11 @@ package com.jdcg.gymRecordApi.Service;
 
 import com.jdcg.gymRecordApi.dto.get.RoutineGetDto;
 import com.jdcg.gymRecordApi.dto.get.RoutineGetDtoC;
+import com.jdcg.gymRecordApi.dto.get.SessionGetDto;
 import com.jdcg.gymRecordApi.dto.save.RoutineSaveDto;
 import com.jdcg.gymRecordApi.dto.update.RoutineUpdateDto;
 import com.jdcg.gymRecordApi.mapper.RoutineMapper;
+import com.jdcg.gymRecordApi.mapper.SessionMapper;
 import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.model.User;
 import com.jdcg.gymRecordApi.repository.RoutineRepository;
@@ -23,22 +25,29 @@ public class RoutineService {
 
     private final UserRepository userRepository;
 
+    private final SessionMapper sessionMapper;
+
     public RoutineService(RoutineMapper routineMapper, RoutineRepository routineRepository,
-                          UserRepository userRepository){
+                          UserRepository userRepository, SessionMapper sessionMapper){
         this.routineMapper=routineMapper;
         this.routineRepository=routineRepository;
         this.userRepository=userRepository;
+        this.sessionMapper=sessionMapper;
     }
 
     //Save
     public RoutineGetDto save(RoutineSaveDto routineSaveDto){
-        Routine routine=routineRepository.save(routineMapper.toRoutine(routineSaveDto));
 
         //Obtener el usuario al que pertenece
-        User user=userRepository.findById(routine.getUser().getUserId()).orElseThrow(()
+        User user=userRepository.findById(routineSaveDto.userId()).orElseThrow(()
                 -> new RuntimeException("No user was found with this ID")
         );
 
+        //Lo convertimos a routine y lo guardamos
+        Routine routine=routineRepository.save(routineMapper.toRoutine(routineSaveDto));
+
+
+        //Agregamos la nueva rutina al usuario
         user.getRoutines().add(routine);
 
         return routineMapper.toRoutineGetDto(routine);
@@ -90,6 +99,15 @@ public class RoutineService {
     public List<RoutineGetDtoC> getRoutinesByNameC(String routineName){
         return routineRepository.findAllByRoutineNameContaining(routineName).stream()
                 .map(routineMapper::toRoutineGetDtoC).collect(Collectors.toList());
+    }
+
+
+    //Obtener todas las sesiones de una determinada rutina
+    public List<SessionGetDto> getSessionByRoutineId(Integer id){
+        Routine routine=routineRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Not routine was found with this ID")
+        );
+        return routine.getSessions().stream().map(sessionMapper::toSessionGetDto).collect(Collectors.toList());
     }
 
 

@@ -6,6 +6,9 @@ import com.jdcg.gymRecordApi.dto.save.RoutineSaveDto;
 import com.jdcg.gymRecordApi.dto.save.SerieSaveDto;
 import com.jdcg.gymRecordApi.dto.update.RoutineUpdateDto;
 import com.jdcg.gymRecordApi.model.Routine;
+import com.jdcg.gymRecordApi.repository.UserRepository;
+import com.jdcg.gymRecordApi.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.stream.Collectors;
 
@@ -13,8 +16,12 @@ public class RoutineMapper {
 
     public SessionMapper sessionMapper;
 
-    public RoutineMapper(SessionMapper sessionMapper){
+    public UserRepository userRepository;
+
+    @Autowired
+    public RoutineMapper(SessionMapper sessionMapper, UserRepository userRepository){
         this.sessionMapper=sessionMapper;
+        this.userRepository=userRepository;
     }
 
     public RoutineGetDto toRoutineGetDto(Routine routine){
@@ -39,12 +46,15 @@ public class RoutineMapper {
     }
 
 
-    public Routine toRoutine(RoutineSaveDto routineSaveDto){
-        Routine routine=new Routine();
+    public Routine toRoutine(RoutineSaveDto routineSaveDto) {
+        Routine routine = new Routine();
         routine.setRoutineName(routineSaveDto.routineName());
-        routine.setRoutineDescription(routineSaveDto.routineDescription()),
-                //Todo: ARREGLAR 
-        routine.setUser(routineSaveDto);
+        routine.setRoutineDescription(routineSaveDto.routineDescription());
+        //Verificar que el id si exista xd
+
+        User user = userRepository.findById(routineSaveDto.userId()).orElseThrow(()
+                -> new RuntimeException("No user was found with this Id"));
+        routine.setUser(user);
         return routine;
     }
 
