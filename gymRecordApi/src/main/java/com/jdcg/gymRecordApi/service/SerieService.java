@@ -1,10 +1,8 @@
-package com.jdcg.gymRecordApi.Service;
+package com.jdcg.gymRecordApi.service;
 
 import com.jdcg.gymRecordApi.dto.get.SerieGetDto;
-import com.jdcg.gymRecordApi.dto.save.ExerciseSaveDto;
 import com.jdcg.gymRecordApi.dto.save.SerieSaveDto;
 import com.jdcg.gymRecordApi.dto.update.SerieUpdateDto;
-import com.jdcg.gymRecordApi.mapper.ExerciseMapper;
 import com.jdcg.gymRecordApi.mapper.SerieMapper;
 import com.jdcg.gymRecordApi.model.Exercise;
 import com.jdcg.gymRecordApi.model.Serie;

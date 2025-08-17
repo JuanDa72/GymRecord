@@ -7,9 +7,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "serie", schema = "gymrecords")
 public class Serie {
@@ -38,5 +36,64 @@ public class Serie {
 
     @Column(name = "SerieNotes", columnDefinition = "TEXT")
     private String serieNotes;
+
+    public Serie() {
+    }
+
+    public Integer getSerieId() {
+        return serieId;
+    }
+
+    public void setSerieId(Integer serieId) {
+        this.serieId = serieId;
+    }
+
+    public Integer getSerieOrden() {
+        return serieOrden;
+    }
+
+    public void setSerieOrden(Integer serieOrden) {
+        this.serieOrden = serieOrden;
+    }
+
+    public BigDecimal getSerieWeight() {
+        return serieWeight;
+    }
+
+    public void setSerieWeight(BigDecimal serieWeight) {
+        this.serieWeight = serieWeight;
+    }
+
+    public Integer getSerieRepetitions() {
+        return serieRepetitions;
+    }
+
+    public void setSerieRepetitions(Integer serieRepetitions) {
+        this.serieRepetitions = serieRepetitions;
+    }
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
+
+    public LocalDateTime getSerieDate() {
+        return serieDate;
+    }
+
+    public void setSerieDate(LocalDateTime serieDate) {
+        this.serieDate = serieDate;
+    }
+
+    public String getSerieNotes() {
+        return serieNotes;
+    }
+
+    public void setSerieNotes(String serieNotes) {
+        this.serieNotes = serieNotes;
+    }
 }
 

@@ -8,9 +8,11 @@ import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.model.Session;
 import com.jdcg.gymRecordApi.repository.RoutineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class SessionMapper {
 
     public ExerciseMapper exerciseMapper;

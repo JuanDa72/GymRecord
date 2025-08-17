@@ -8,9 +8,6 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "exercise", schema = "gymrecords")
 public class Exercise {
@@ -44,6 +41,72 @@ public class Exercise {
     @JsonManagedReference // lado padre
     private List<Serie> series = new ArrayList<>();
 
+    public Exercise() {
+    }
 
+
+    public Integer getExerciseId() {
+        return exerciseId;
+    }
+
+    public void setExerciseId(Integer exerciseId) {
+        this.exerciseId = exerciseId;
+    }
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public Integer getExercisesNumberSeries() {
+        return exercisesNumberSeries;
+    }
+
+    public void setExercisesNumberSeries(Integer exercisesNumberSeries) {
+        this.exercisesNumberSeries = exercisesNumberSeries;
+    }
+
+    public Integer getExerciseOrden() {
+        return exerciseOrden;
+    }
+
+    public void setExerciseOrden(Integer exerciseOrden) {
+        this.exerciseOrden = exerciseOrden;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public String getExerciseMachine() {
+        return exerciseMachine;
+    }
+
+    public void setExerciseMachine(String exerciseMachine) {
+        this.exerciseMachine = exerciseMachine;
+    }
+
+    public String getExerciseNotes() {
+        return exerciseNotes;
+    }
+
+    public void setExerciseNotes(String exerciseNotes) {
+        this.exerciseNotes = exerciseNotes;
+    }
+
+    public List<Serie> getSeries() {
+        return series;
+    }
+
+    public void setSeries(List<Serie> series) {
+        this.series = series;
+    }
 }
 

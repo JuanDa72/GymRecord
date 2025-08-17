@@ -1,4 +1,4 @@
-package com.jdcg.gymRecordApi.Service;
+package com.jdcg.gymRecordApi.service;
 
 import com.jdcg.gymRecordApi.dto.get.RoutineGetDto;
 import com.jdcg.gymRecordApi.dto.get.RoutineGetDtoC;
@@ -11,7 +11,6 @@ import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.model.User;
 import com.jdcg.gymRecordApi.repository.RoutineRepository;
 import com.jdcg.gymRecordApi.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

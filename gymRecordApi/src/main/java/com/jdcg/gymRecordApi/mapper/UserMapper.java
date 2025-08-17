@@ -5,10 +5,13 @@ import com.jdcg.gymRecordApi.dto.get.UserGetDtoC;
 import com.jdcg.gymRecordApi.dto.save.UserSaveDto;
 import com.jdcg.gymRecordApi.dto.update.UserUpdateDto;
 import com.jdcg.gymRecordApi.model.User;
+import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class UserMapper {
 
     RoutineMapper routineMapper;

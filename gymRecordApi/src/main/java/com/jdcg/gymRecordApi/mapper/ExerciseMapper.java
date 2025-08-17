@@ -7,9 +7,11 @@ import com.jdcg.gymRecordApi.dto.update.ExerciseUpdateDto;
 import com.jdcg.gymRecordApi.model.Exercise;
 import com.jdcg.gymRecordApi.model.Session;
 import com.jdcg.gymRecordApi.repository.SessionRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class ExerciseMapper {
 
     public SerieMapper serieMapper;

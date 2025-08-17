@@ -6,7 +6,9 @@ import com.jdcg.gymRecordApi.dto.update.SerieUpdateDto;
 import com.jdcg.gymRecordApi.model.Exercise;
 import com.jdcg.gymRecordApi.model.Serie;
 import com.jdcg.gymRecordApi.repository.ExerciseRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SerieMapper {
 
     ExerciseRepository exerciseRepository;

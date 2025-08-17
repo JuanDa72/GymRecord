@@ -1,4 +1,4 @@
-package com.jdcg.gymRecordApi.Service;
+package com.jdcg.gymRecordApi.service;
 
 import com.jdcg.gymRecordApi.dto.get.RoutineGetDto;
 import com.jdcg.gymRecordApi.dto.get.UserGetDto;

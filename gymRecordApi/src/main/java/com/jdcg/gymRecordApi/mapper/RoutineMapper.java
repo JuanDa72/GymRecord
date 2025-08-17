@@ -9,9 +9,11 @@ import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.repository.UserRepository;
 import com.jdcg.gymRecordApi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class RoutineMapper {
 
     public SessionMapper sessionMapper;
@@ -26,7 +28,7 @@ public class RoutineMapper {
 
     public RoutineGetDto toRoutineGetDto(Routine routine){
         return new RoutineGetDto(
-                routine.getRoutineId(),
+                routine .getRoutineId(),
                 routine.getRoutineName(),
                 routine.getRoutineCreationDate(),
                 routine.getRoutineLastAccess(),
