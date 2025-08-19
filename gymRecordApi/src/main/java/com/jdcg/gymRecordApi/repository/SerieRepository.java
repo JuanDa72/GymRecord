@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SerieRepository extends JpaRepository<Serie, Integer> {
 
-    List<Serie> findByExerciseIdOrderByCreatedAtDesc(Integer id);
+    List<Serie> findByExerciseExerciseIdOrderBySerieDateDesc(Integer exerciseId);
 
 
 }

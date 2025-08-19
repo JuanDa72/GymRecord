@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "serie", schema = "gymrecords")
+@Table(name = "serie", schema = "gymrecordssecond")
 public class Serie {
 
     @Id
@@ -18,6 +18,7 @@ public class Serie {
     private Integer serieId;
 
     @Column(name = "SerieOrden", nullable = false)
+
     private Integer serieOrden;
 
     @Column(name = "SerieWeight", precision = 5, scale = 2, nullable = false)

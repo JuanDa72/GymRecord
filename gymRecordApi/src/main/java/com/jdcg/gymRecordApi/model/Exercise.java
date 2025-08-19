@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "exercise", schema = "gymrecords")
+@Table(name = "exercise", schema = "gymrecordssecond")
 public class Exercise {
 
     @Id
@@ -20,7 +20,7 @@ public class Exercise {
     @Column(name = "ExerciseName", nullable = false, length = 45)
     private String exerciseName;
 
-    @Column(name = "ExercisesNumberSeries", nullable = false)
+    @Column(name = "ExerciseNumberSeries", nullable = false)
     private Integer exercisesNumberSeries;
 
     @Column(name = "ExerciseOrden", nullable = false)

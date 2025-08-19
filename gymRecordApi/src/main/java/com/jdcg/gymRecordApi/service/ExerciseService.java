@@ -109,7 +109,7 @@ public class ExerciseService {
                 ()->new RuntimeException("No exercise was found with this ID")
         );
 
-        List<Serie> series=serieRepository.findByExerciseIdOrderByCreatedAtDesc(id);
+        List<Serie> series=serieRepository.findByExerciseExerciseIdOrderBySerieDateDesc(id);
         return series.stream().map(serieMapper::toSerieGetDto).collect(Collectors.toList());
 
     }

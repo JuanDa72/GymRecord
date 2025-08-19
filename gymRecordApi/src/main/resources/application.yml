@@ -3,13 +3,15 @@ spring:
     name: gymRecordApi
 
   datasource:
-    url: jdbc:mysql://localhost:3306/gymrecords
+    url: jdbc:mysql://localhost:3306/gymrecordssecond?useSSL=false&serverTimezone=UTC
     username: root
     password: Celinm08
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create   # Genera las tablas desde cero cada vez
     show-sql: true
-
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect

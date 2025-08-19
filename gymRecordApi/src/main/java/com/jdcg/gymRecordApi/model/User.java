@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "user", schema = "gymrecords")
+@Table(name = "user", schema = "gymrecordssecond")
 public class User {
 
     @Id
@@ -29,16 +29,16 @@ public class User {
     @Column(name = "UserEmail", nullable = false, length = 45, unique = true)
     private String userEmail;
 
-    @Column(name = "userPassword", nullable = false, length = 45)
+    @Column(name = "UserPassword", nullable = false, length = 45)
     private String userPassword;
 
-    @Column(name = "userAge", nullable = false)
+    @Column(name = "UserAge", nullable = false)
     private Integer userAge;
 
-    @Column(name = "userBirthdate", nullable = false)
+    @Column(name = "UserBirthdate", nullable = false)
     private LocalDate userBirthdate;
 
-    @Column(name = "userPhoneNumber", nullable = false, length = 45)
+    @Column(name = "UserPhoneNumber", nullable = false, length = 45)
     private String userPhoneNumber;
 
     @Column(name = "UserGender", length = 45)
