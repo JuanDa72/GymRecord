@@ -51,7 +51,7 @@ public class SerieService {
         );
 
         serie=serieMapper.updateToserie(serieUpdateDto,serie);
-        return serieMapper.toSerieGetDto(serie);
+        return serieMapper.toSerieGetDto(serieRepository.save(serie));
 
     }
 
@@ -76,13 +76,13 @@ public class SerieService {
 
     //Delete
     public void delete(Integer id){
-        //Verificamos que exista
-        if(!serieRepository.existsById(id)){
-            throw new RuntimeException("No serie was found with this ID");
-        }
+        Serie serie=serieRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("No session was found with this ID")
+        );
 
-        serieRepository.deleteById(id);
-
+        Exercise exercise=serie.getExercise();
+        exercise.getSeries().remove(serie);
+        serieRepository.delete(serie);
     }
 
 

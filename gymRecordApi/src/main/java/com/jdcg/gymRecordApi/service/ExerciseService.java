@@ -65,7 +65,7 @@ public class ExerciseService {
         );
 
         exercise=exerciseMapper.updateToExercise(exerciseUpdateDto,exercise);
-        return exerciseMapper.toExerciseGetDto(exercise);
+        return exerciseMapper.toExerciseGetDto(exerciseRepository.save(exercise));
 
     }
 
@@ -118,11 +118,13 @@ public class ExerciseService {
 
     //Delete
     public void delete(Integer id){
-        if(!exerciseRepository.existsById(id)){
-            throw new RuntimeException("No exercise was found with this ID");
-        }
+        Exercise exercise=exerciseRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("No exercise was found with this ID")
+        );
 
-        exerciseRepository.deleteById(id);
+        Session session=exercise.getSession();
+        session.getExercises().remove(exercise);
+        exerciseRepository.delete(exercise);
 
     }
 

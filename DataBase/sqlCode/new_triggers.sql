@@ -34,6 +34,17 @@ create trigger set_routine_creation_date
 	end $$
     
     
+-- Trigger para que cuando se cree una rutina se ponga automaticamente la fecha del último acceso
+delimiter $$
+create trigger set_routine_last_access
+		before insert on routine
+        for each row 
+        begin 
+			set new.routine_last_access=curdate();
+		end $$
+        
+        
+        
 CREATE TRIGGER update_routine_last_access
 AFTER INSERT ON serie
 FOR EACH ROW

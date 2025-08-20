@@ -11,6 +11,9 @@ import com.jdcg.gymRecordApi.model.Routine;
 import com.jdcg.gymRecordApi.model.User;
 import com.jdcg.gymRecordApi.repository.RoutineRepository;
 import com.jdcg.gymRecordApi.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,16 +28,21 @@ public class RoutineService {
     private final UserRepository userRepository;
 
     private final SessionMapper sessionMapper;
+    private final EntityManager entityManager;
 
+    @Autowired
     public RoutineService(RoutineMapper routineMapper, RoutineRepository routineRepository,
-                          UserRepository userRepository, SessionMapper sessionMapper){
+                          UserRepository userRepository, SessionMapper sessionMapper,
+                          EntityManager entityManager){
         this.routineMapper=routineMapper;
         this.routineRepository=routineRepository;
         this.userRepository=userRepository;
         this.sessionMapper=sessionMapper;
+        this.entityManager=entityManager;
     }
 
     //Save
+    @Transactional
     public RoutineGetDto save(RoutineSaveDto routineSaveDto){
 
         //Obtener el usuario al que pertenece
@@ -49,6 +57,8 @@ public class RoutineService {
         //Agregamos la nueva rutina al usuario
         user.getRoutines().add(routine);
 
+        entityManager.refresh(routine);
+
         return routineMapper.toRoutineGetDto(routine);
     }
 
@@ -59,7 +69,7 @@ public class RoutineService {
         Routine routine=routineRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("No routine was found with this ID"));
         routine=routineMapper.updateToRoutine(routineUpdateDto,routine);
-        return routineMapper.toRoutineGetDto(routine);
+        return routineMapper.toRoutineGetDto(routineRepository.save(routine));
     }
 
 
@@ -113,10 +123,12 @@ public class RoutineService {
 
     //Delete
     public void deleteRoutine(Integer id){
-        if(!routineRepository.existsById(id)){
-            throw new RuntimeException("Routine not found with this ID"+id);
-        }
-        routineRepository.deleteById(id);
+        Routine routine=routineRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("No routine was found with this ID")
+        );
+        User user=routine.getUser();
+        user.getRoutines().remove(routine);
+        routineRepository.delete(routine);
     }
 
 

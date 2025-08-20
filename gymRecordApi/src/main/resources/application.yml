@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create   # Genera las tablas desde cero cada vez
+      ddl-auto: update   # Genera las tablas desde cero cada vez
     show-sql: true
     properties:
       hibernate:

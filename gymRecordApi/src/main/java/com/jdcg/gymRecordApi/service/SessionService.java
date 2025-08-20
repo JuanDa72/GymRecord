@@ -12,10 +12,12 @@ import com.jdcg.gymRecordApi.model.Session;
 import com.jdcg.gymRecordApi.repository.RoutineRepository;
 import com.jdcg.gymRecordApi.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class SessionService {
 
     private final SessionMapper sessionMapper;
@@ -61,7 +63,7 @@ public class SessionService {
         //Actualizamos
         session=sessionMapper.updateToSession(sessionUpdateDto,session);
 
-        return sessionMapper.toSessionGetDto(session);
+        return sessionMapper.toSessionGetDto(sessionRepository.save(session));
     }
 
 
@@ -105,11 +107,12 @@ public class SessionService {
 
     //Delete
     public void delete(Integer id){
-        if(!sessionRepository.existsById(id)){
-            throw new RuntimeException("No Session was found with this ID");
-        }
-        sessionRepository.deleteById(id);
-
+        Session session=sessionRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("No session was found with this ID")
+        );
+        Routine routine=session.getRoutine();
+        routine.getSessions().remove(session);
+        sessionRepository.delete(session);
 
 
     }
