@@ -8,24 +8,33 @@ import com.jdcg.gymRecordApi.model.Exercise;
 import com.jdcg.gymRecordApi.model.Serie;
 import com.jdcg.gymRecordApi.repository.ExerciseRepository;
 import com.jdcg.gymRecordApi.repository.SerieRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class SerieService {
 
     private final SerieMapper serieMapper;
     private final SerieRepository serieRepository;
     private final ExerciseRepository exerciseRepository;
 
-    public SerieService(SerieMapper serieMapper, SerieRepository serieRepository, ExerciseRepository exerciseRepository) {
+    private final EntityManager entityManager;
+
+    public SerieService(SerieMapper serieMapper, SerieRepository serieRepository,
+                        ExerciseRepository exerciseRepository, EntityManager entityManager) {
         this.serieMapper = serieMapper;
         this.serieRepository = serieRepository;
         this.exerciseRepository = exerciseRepository;
+        this.entityManager = entityManager;
     }
 
 
     //Save
+    @Transactional
     public SerieGetDto save(SerieSaveDto serieSaveDto) {
         //Encontramos el ejercicio al que pertenece
         Exercise exercise = exerciseRepository.findById(serieSaveDto.exerciseId()).orElseThrow(
@@ -37,6 +46,8 @@ public class SerieService {
 
         //Actualizamos la lista de series en exercise
         exercise.getSeries().add(serie);
+
+        entityManager.refresh(serie);
 
         return serieMapper.toSerieGetDto(serie);
     }

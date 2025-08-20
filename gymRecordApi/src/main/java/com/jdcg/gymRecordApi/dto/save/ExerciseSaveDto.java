@@ -9,7 +9,7 @@ public record ExerciseSaveDto(
         String exerciseName,
         @Min(value = 1, message = "The number of series must be greater than 0")
         Integer exercisesNumberSeries,
-        @Min(value = 1, message = "The number of series must be greater than 0")
+        @Min(value = 1, message = "The number of order must be greater than 0")
         Integer exerciseOrden,
         String exerciseMachine,
         String exerciseNotes,
